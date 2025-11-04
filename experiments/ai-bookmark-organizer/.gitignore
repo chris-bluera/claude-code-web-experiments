@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Environment variables
+.env
+backend/.env
+
+# Logs
+*.log
+npm-debug.log*
+backend/*.log
+
+# Database
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Build
+dist/
+build/
+
+# Temporary
+tmp/
+temp/
+.cache/

@@ -1,0 +1,219 @@
+/* AI Bookmark Organizer - Options Page Styles */
+
+body {
+  background: var(--bg-secondary);
+  padding: 2rem;
+}
+
+.options-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+.options-header {
+  margin-bottom: 2rem;
+}
+
+.options-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Content */
+.options-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Settings Sections */
+.settings-section {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settings-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Checkbox Labels */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  cursor: pointer;
+}
+
+/* Status Messages */
+#statusMessage {
+  animation: slideIn 0.3s ease-out;
+}
+
+#statusMessage.hidden {
+  display: none;
+}
+
+/* Info Grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.info-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Button Groups */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* About Section */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Danger Zone */
+.danger-zone {
+  border-color: var(--error-color);
+}
+
+.danger-zone .card-header h2 {
+  color: var(--error-color);
+}
+
+.danger-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Footer */
+.options-footer {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+/* Range Input Styling */
+input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-tertiary);
+  outline: none;
+  padding: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--primary-hover);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: var(--primary-hover);
+}
+
+/* Links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body {
+    padding: 1rem;
+  }
+
+  .options-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .button-group,
+  .danger-actions,
+  .about-links {
+    flex-direction: column;
+  }
+
+  .button-group button,
+  .danger-actions button,
+  .about-links a {
+    width: 100%;
+  }
+}

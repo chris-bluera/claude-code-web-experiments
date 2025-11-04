@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Bookmark Organizer</title>
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <h2>AI Bookmarks</h2>
+      <div class="header-actions">
+        <button id="settingsBtn" class="btn btn-icon btn-secondary" title="Settings">
+          ⚙️
+        </button>
+      </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-section">
+      <div class="search-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search bookmarks... (prefix with / for AI search)"
+          autocomplete="off"
+        />
+        <button id="searchBtn" class="btn btn-icon btn-primary">
+          🔍
+        </button>
+      </div>
+      <div class="search-mode-toggle">
+        <label>
+          <input type="checkbox" id="aiSearchToggle" />
+          <span class="text-small">AI Semantic Search</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button id="saveCurrentBtn" class="btn btn-primary">
+        ➕ Save Current Page
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="bookmarks">Bookmarks</button>
+      <button class="tab-btn" data-tab="categories">Categories</button>
+      <button class="tab-btn" data-tab="chat">AI Chat</button>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-state hidden">
+      <div class="loading-text">
+        <span class="spinner"></span>
+        <span>Loading...</span>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="hidden">
+      <div class="message message-error">
+        <strong>Error:</strong> <span id="errorMessage"></span>
+      </div>
+    </div>
+
+    <!-- Tab Content: Bookmarks -->
+    <div id="bookmarksTab" class="tab-content active">
+      <div id="bookmarksList" class="bookmarks-list">
+        <!-- Bookmarks will be loaded here -->
+      </div>
+      <div id="noBookmarks" class="empty-state hidden">
+        <p>📚 No bookmarks yet</p>
+        <p class="text-small text-muted">Save your first bookmark to get started!</p>
+      </div>
+    </div>
+
+    <!-- Tab Content: Categories -->
+    <div id="categoriesTab" class="tab-content">
+      <div class="categories-header">
+        <h3>Categories</h3>
+        <button id="addCategoryBtn" class="btn btn-small btn-primary">
+          ➕ New Category
+        </button>
+      </div>
+      <div id="categoriesList" class="categories-list">
+        <!-- Categories will be loaded here -->
+      </div>
+    </div>
+
+    <!-- Tab Content: AI Chat -->
+    <div id="chatTab" class="tab-content">
+      <div class="chat-container">
+        <div id="chatMessages" class="chat-messages">
+          <div class="message message-info">
+            <strong>AI Assistant</strong>
+            <p class="text-small">Ask me anything about your bookmarks or how to organize them!</p>
+          </div>
+        </div>
+        <div class="chat-input-container">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask about bookmark organization..."
+            autocomplete="off"
+          />
+          <button id="chatSendBtn" class="btn btn-primary">
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Save Bookmark -->
+  <div id="saveBookmarkModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Save Bookmark</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="aiAnalysis" class="hidden">
+          <div class="message message-info">
+            <strong>AI Suggestion:</strong>
+            <p id="aiSuggestion"></p>
+            <div class="ai-tags">
+              <span class="text-small text-muted">Tags:</span>
+              <div id="suggestedTags"></div>
+            </div>
+          </div>
+        </div>
+        <form id="saveBookmarkForm">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" id="bookmarkTitle" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL</label>
+            <input type="url" id="bookmarkUrl" required readonly />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="bookmarkCategory">
+              <option value="">Loading categories...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes (optional)</label>
+            <textarea id="bookmarkNotes" rows="3"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Bookmark</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Category Details -->
+  <div id="categoryModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="categoryModalTitle">Category Details</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="categoryBookmarks"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

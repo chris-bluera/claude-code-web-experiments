@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Bookmark Organizer - Settings</title>
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/options.css">
+</head>
+<body>
+  <div class="options-container">
+    <header class="options-header">
+      <h1>⚙️ AI Bookmark Organizer Settings</h1>
+      <p class="text-muted">Configure your AI-powered bookmark management</p>
+    </header>
+
+    <main class="options-content">
+      <!-- Success/Error Messages -->
+      <div id="statusMessage" class="hidden"></div>
+
+      <!-- API Configuration -->
+      <section class="settings-section card">
+        <div class="card-header">
+          <h2>🔑 API Configuration</h2>
+        </div>
+
+        <form id="apiConfigForm">
+          <div class="form-group">
+            <label class="form-label" for="apiKey">
+              OpenRouter API Key
+              <span class="text-error">*</span>
+            </label>
+            <input
+              type="password"
+              id="apiKey"
+              placeholder="sk-or-v1-..."
+              required
+            />
+            <span class="form-help">
+              Get your API key from <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="apiUrl">
+              Backend API URL
+              <span class="text-error">*</span>
+            </label>
+            <input
+              type="url"
+              id="apiUrl"
+              placeholder="http://localhost:3000"
+              required
+            />
+            <span class="form-help">
+              URL of your local backend server
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="model">
+              AI Model
+            </label>
+            <select id="model">
+              <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet (Recommended)</option>
+              <option value="anthropic/claude-3-haiku">Claude 3 Haiku (Faster, cheaper)</option>
+              <option value="openai/gpt-4">GPT-4</option>
+              <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
+              <option value="google/gemini-pro">Gemini Pro</option>
+              <option value="meta-llama/llama-3-70b-instruct">Llama 3 70B</option>
+            </select>
+            <span class="form-help">
+              Choose the AI model for bookmark analysis
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            💾 Save API Settings
+          </button>
+        </form>
+      </section>
+
+      <!-- Feature Settings -->
+      <section class="settings-section card">
+        <div class="card-header">
+          <h2>🎯 Feature Settings</h2>
+        </div>
+
+        <form id="featureSettingsForm">
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="autoOrganize" />
+              <span>Automatically organize new bookmarks with AI</span>
+            </label>
+            <span class="form-help">
+              When enabled, bookmarks created with Ctrl+D will be automatically analyzed and categorized
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="fetchContent" />
+              <span>Fetch page content for better analysis</span>
+            </label>
+            <span class="form-help">
+              Enables deeper content analysis but may be slower
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="showNotifications" />
+              <span>Show notifications for bookmark actions</span>
+            </label>
+            <span class="form-help">
+              Display desktop notifications when bookmarks are saved or organized
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            💾 Save Feature Settings
+          </button>
+        </form>
+      </section>
+
+      <!-- Database Settings -->
+      <section class="settings-section card">
+        <div class="card-header">
+          <h2>💾 Database Information</h2>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Total Bookmarks:</span>
+            <span class="info-value" id="totalBookmarks">Loading...</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Categories:</span>
+            <span class="info-value" id="totalCategories">Loading...</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Last Synced:</span>
+            <span class="info-value" id="lastSynced">Never</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button id="syncNowBtn" class="btn btn-secondary">
+            🔄 Sync Now
+          </button>
+          <button id="importBookmarksBtn" class="btn btn-secondary">
+            📥 Import Chrome Bookmarks
+          </button>
+          <button id="exportBookmarksBtn" class="btn btn-secondary">
+            📤 Export Bookmarks
+          </button>
+        </div>
+      </section>
+
+      <!-- Advanced Settings -->
+      <section class="settings-section card">
+        <div class="card-header">
+          <h2>🔧 Advanced Settings</h2>
+        </div>
+
+        <form id="advancedSettingsForm">
+          <div class="form-group">
+            <label class="form-label" for="searchThreshold">
+              Semantic Search Similarity Threshold
+            </label>
+            <input
+              type="range"
+              id="searchThreshold"
+              min="0.5"
+              max="1.0"
+              step="0.05"
+              value="0.7"
+            />
+            <span class="form-help">
+              Current: <span id="thresholdValue">0.7</span> (Higher = more precise, Lower = more results)
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="maxSuggestions">
+              Maximum AI Suggestions
+            </label>
+            <input
+              type="number"
+              id="maxSuggestions"
+              min="1"
+              max="10"
+              value="5"
+            />
+            <span class="form-help">
+              Number of category suggestions to show
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            💾 Save Advanced Settings
+          </button>
+        </form>
+      </section>
+
+      <!-- About Section -->
+      <section class="settings-section card">
+        <div class="card-header">
+          <h2>ℹ️ About</h2>
+        </div>
+
+        <div class="about-content">
+          <p><strong>AI Bookmark Organizer</strong> v1.0.0</p>
+          <p class="text-muted">
+            An intelligent bookmark management system powered by AI.
+            Automatically categorizes and organizes your bookmarks using OpenRouter's AI models.
+          </p>
+
+          <div class="about-links">
+            <a href="https://github.com/your-repo" target="_blank" class="btn btn-secondary btn-small">
+              📚 Documentation
+            </a>
+            <a href="https://github.com/your-repo/issues" target="_blank" class="btn btn-secondary btn-small">
+              🐛 Report Issue
+            </a>
+            <a href="https://openrouter.ai" target="_blank" class="btn btn-secondary btn-small">
+              🔗 OpenRouter
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Danger Zone -->
+      <section class="settings-section card danger-zone">
+        <div class="card-header">
+          <h2>⚠️ Danger Zone</h2>
+        </div>
+
+        <div class="danger-actions">
+          <button id="clearCacheBtn" class="btn btn-secondary">
+            🗑️ Clear Cache
+          </button>
+          <button id="resetSettingsBtn" class="btn btn-danger">
+            ⚠️ Reset All Settings
+          </button>
+          <button id="deleteAllBtn" class="btn btn-danger">
+            💣 Delete All Bookmarks
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="options-footer">
+      <p class="text-muted text-small">
+        Made with ❤️ by the AI Bookmark Organizer Team
+      </p>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
